@@ -86,7 +86,7 @@ def getparse(userUrl,name,userdata):
         if items.find_all('video'):
             for v in items.find_all('video'):
                 videourl = v.source.get('src')
-                filepath = "userpost"+ os.sep + username+'('+userid+')'+ os.sep + videourl.split('/')[-1]
+                filepath = "userpost"+ os.sep + username+'('+userid+')'+ os.sep +videourl.split('/')[-1]
                 logging.info(videourl+' '+filepath)
                 threads.append(Thread(downloader,(videourl,filepath)))
         else:
