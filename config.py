@@ -3,8 +3,8 @@ import sys
 
 
 
-# START_URL= 'https://www.reddit.com/r/SupeApp/?count=26&before=t3_6abcra'
-START_URL = "https://www.reddit.com/r/SupeApp/?count=50&after=t3_6abcya"
+START_URL= 'https://www.reddit.com/r/SupeApp/?count=26&before=t3_6abcra'
+# START_URL = "https://www.reddit.com/r/SupeApp/?count=50&after=t3_6abcya"
 HEADERS ={
     "Referer": "https://www.reddit.com/",
     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",

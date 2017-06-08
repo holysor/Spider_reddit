@@ -18,6 +18,8 @@ logging.basicConfig(level=logging.DEBUG,
                     filename='reddit.log',
                     filemode='w')
 
+
+
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
 formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
@@ -49,7 +51,6 @@ def getparse(userUrl,name,userdata):
     username = name.strip()
     if '/' in username:
         username = username.replace('/','-')
-    print username
 
     userid = userUrl.split('/')[-1]
     userdata = userdata
@@ -72,10 +73,9 @@ def getparse(userUrl,name,userdata):
     response = requests.get(userUrl)
     soup = BeautifulSoup(response.text)
  
-    if username:
-        print username
-        if not os.path.exists("userpost"+os.sep+username):
-            os.makedirs("userpost"+os.sep+username)
+    if userid and username:
+        if not os.path.exists("userpost"+os.sep+username+'('+userid+')'):
+            os.makedirs("userpost"+os.sep+username+'('+userid+')')
     else:
         return
 
@@ -86,7 +86,7 @@ def getparse(userUrl,name,userdata):
         if items.find_all('video'):
             for v in items.find_all('video'):
                 videourl = v.source.get('src')
-                filepath = "userpost"+ os.sep + username+ os.sep + videourl.split('/')[-1]
+                filepath = "userpost"+ os.sep + username+'('+userid+')'+ os.sep + videourl.split('/')[-1]
                 logging.info(videourl+' '+filepath)
                 threads.append(Thread(downloader,(videourl,filepath)))
         else:
@@ -96,7 +96,7 @@ def getparse(userUrl,name,userdata):
                 else:
                     imageurl = 'https:' + p.get('data-original')
                 if imageurl:
-                    filepath = "userpost"+ os.sep + username + os.sep + imageurl.split('/')[-1]
+                    filepath = "userpost"+ os.sep + username+'('+userid+')' + os.sep + imageurl.split('/')[-1]
                 logging.info(imageurl+" "+filepath)
                 threads.append(Thread(downloader,(imageurl,filepath)))
 
@@ -192,7 +192,6 @@ if __name__=="__main__":
         end_page = start_url
         exit = False
         for list in users:
-            print alreadyCount,download_num
             if alreadyCount >= download_num:
                 exit = True
                 break
